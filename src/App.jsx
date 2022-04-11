@@ -24,6 +24,7 @@ function App() {
   const [state, dispatch] = useReducer(searchReducer, initialState);
 
   const apiURL = "https://fakestoreapi.com/products";
+  
   useEffect(() => {
     dispatch({ type: "API_CALL" });
     const getAPI = async () => {
@@ -54,7 +55,7 @@ function App() {
           <Container
             id="card-container"
             textAlign="center"
-            style={{ padding: 20 }}
+            style={{ padding: 15 }}
           >
             <CardGroup />
           </Container>

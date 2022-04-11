@@ -11,6 +11,7 @@ class Product {
   }
 }
 
+
 const CardGroup = () => {
   const searchContext = useContext(SearchContext);
   const allProducts = searchContext.searchState.source;
@@ -31,7 +32,7 @@ const CardGroup = () => {
   };
 
   useEffect(() => {
-    if (filteredProducts.length == 0) {
+    if (filteredProducts.length === 0) {
       makeItemList(allProducts);
     } else {
       makeItemList(filteredProducts);
