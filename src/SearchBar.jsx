@@ -51,6 +51,7 @@ export default function SearchBar() {
       <Grid.Row>
         <Grid.Column width={10}>
           <Search
+          
             input={{ fluid: true }}
             loading={searchContext.searchState.loading}
             placeholder="Search..."

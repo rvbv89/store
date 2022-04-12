@@ -1,8 +1,17 @@
 import "./App.css";
-import React, { useContext, useEffect, useReducer, useState } from "react";
+import React, {
+  useContext,
+  useEffect,
+  useReducer,
+  useState,
+  createRef,
+} from "react";
+import { Outlet, Routes, Route } from "react-router-dom";
+import Home from "./Home";
 import NavBar from "./NavBar";
 import CardGroup from "./CardGroup";
-import { Container, Segment, Grid } from "semantic-ui-react";
+import ProductPage from "./ProductPage";
+import { Container, Segment, Grid, Sticky, Ref } from "semantic-ui-react";
 import SearchReducer from "./SearchReducer";
 import axios from "axios";
 
@@ -24,7 +33,7 @@ function App() {
   const [state, dispatch] = useReducer(searchReducer, initialState);
 
   const apiURL = "https://fakestoreapi.com/products";
-  
+
   useEffect(() => {
     dispatch({ type: "API_CALL" });
     const getAPI = async () => {
@@ -41,26 +50,45 @@ function App() {
 
   return (
     <div className="App">
-      <Container>
-        <SearchContext.Provider
-          value={{
-            searchState: state,
-            searchDispatch: dispatch,
-          }}
-        >
-          <Container id="nav-segment" style={{ margin: -2, padding: 25 }}>
-            <NavBar />
-          </Container>
+      <SearchContext.Provider
+        value={{
+          searchState: state,
+          searchDispatch: dispatch,
+        }}
+      >
+        <NavBar />
 
-          <Container
+        <Routes>
+          <Route path="/" element={<Home/>}/>
+          <Route path="product-page" element={<ProductPage/>}/>
+          {/* <Container
             id="card-container"
-            textAlign="center"
-            style={{ padding: 15 }}
+            fluid
+            style={{ margin: -20, paddingTop: 50 }}
           >
+            <div
+              className="ui center aligned header"
+              style={{
+                width: "100%",
+                height: "20em",
+                backgroundColor: "#EEBC77",
+              }}
+            >
+              <h2 className="ui huge header" style={{ padding: "2em" }}>
+                The Big Something Event!
+              </h2>
+              <h1
+                className="ui huge header"
+                style={{ fontStyle: "italic", fontWeight: "lighter" }}
+              >
+                Some Sort Of Discout Available!
+              </h1>
+            </div>
             <CardGroup />
-          </Container>
-        </SearchContext.Provider>
-      </Container>
+          </Container> */}
+         
+        </Routes>
+      </SearchContext.Provider>
     </div>
   );
 }

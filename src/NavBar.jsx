@@ -1,13 +1,22 @@
-import React from "react";
-import { Icon, Grid, Menu } from "semantic-ui-react";
+import React, {useRef} from "react";
+import { Icon, Grid, Menu, Sticky, Container, Ref } from "semantic-ui-react";
 import SearchFilter from "./SearchFilter";
 import SearchBar from "./SearchBar";
+import { Navigate, useNavigate } from "react-router-dom";
 
 export default function NavBar() {
+const navigate = useNavigate();
+
+const handleHomeClick = () => {
+  navigate('/')
+}
+
   return (
-    <Grid columns="equal">
+    
+      <Container className="nav-container" style={{ margin: -2, padding: 25, width: '100%' }}>
+    <Grid relaxed columns="equal">
       <Grid.Column floated="left" width={1}>
-        <Icon id="icon" name="shopping bag" size="huge" />
+        <h2 onClick={handleHomeClick} style={{cursor:'pointer'}} href="/" id="store-title">StoreDemo</h2>
       </Grid.Column>
       <Grid.Column width={3}>
         <SearchFilter />
@@ -22,5 +31,8 @@ export default function NavBar() {
         <Icon name="box" size="large" />
       </Grid.Column>
     </Grid>
+    </Container>
+    
+   
   );
 }
