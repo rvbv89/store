@@ -6,11 +6,14 @@ import React, {
   useState,
   createRef,
 } from "react";
+import { useCart } from "./context/CartProvider";
+import { useNavigate } from "react-router-dom";
 import { Outlet, Routes, Route } from "react-router-dom";
 import Home from "./Home";
 import NavBar from "./NavBar";
 import CardGroup from "./CardGroup";
 import ProductPage from "./ProductPage";
+import CartPage from "./CartPage"
 import { Container, Segment, Grid, Sticky, Ref } from "semantic-ui-react";
 import SearchReducer from "./SearchReducer";
 import axios from "axios";
@@ -31,7 +34,7 @@ const searchReducer = SearchReducer;
 
 function App() {
   const [state, dispatch] = useReducer(searchReducer, initialState);
-
+  const { setCurrentProduct, currentProduct, setCart, cart } = useCart();
   const apiURL = "https://fakestoreapi.com/products";
 
   useEffect(() => {
@@ -48,6 +51,20 @@ function App() {
     getAPI();
   }, []);
 
+  const navigate = useNavigate();
+  const navigateToProductPage = (product) => {
+    setCurrentProduct(product);
+    console.log(product);
+    navigate("/product-page");
+  };
+
+  const navigateToCartPage = () => {
+    navigate("/cart-page")
+  }
+  const navigateToHomePage = () => {
+    setCurrentProduct("");
+    navigate("/");
+  };
   return (
     <div className="App">
       <SearchContext.Provider
@@ -56,37 +73,18 @@ function App() {
           searchDispatch: dispatch,
         }}
       >
-        <NavBar />
+        <NavBar
+          navigateToProductPage={navigateToProductPage}
+          navigateToCartPage={navigateToCartPage}
+          navigateToHomePage={navigateToHomePage}
+          currentProduct={currentProduct}
+          setCurrentProduct={setCurrentProduct}
+        />
 
         <Routes>
-          <Route path="/" element={<Home/>}/>
-          <Route path="product-page" element={<ProductPage/>}/>
-          {/* <Container
-            id="card-container"
-            fluid
-            style={{ margin: -20, paddingTop: 50 }}
-          >
-            <div
-              className="ui center aligned header"
-              style={{
-                width: "100%",
-                height: "20em",
-                backgroundColor: "#EEBC77",
-              }}
-            >
-              <h2 className="ui huge header" style={{ padding: "2em" }}>
-                The Big Something Event!
-              </h2>
-              <h1
-                className="ui huge header"
-                style={{ fontStyle: "italic", fontWeight: "lighter" }}
-              >
-                Some Sort Of Discout Available!
-              </h1>
-            </div>
-            <CardGroup />
-          </Container> */}
-         
+          <Route path="/" element={<Home navigateToProductPage={navigateToProductPage} />} />
+          <Route path="product-page" element={<ProductPage />} />
+          <Route path="cart-page" element={<CartPage />} />
         </Routes>
       </SearchContext.Provider>
     </div>

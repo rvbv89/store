@@ -3,7 +3,7 @@ import { SearchContext } from "./App";
 import { Search, Grid } from "semantic-ui-react";
 import _ from "lodash";
 
-export default function SearchBar() {
+export default function SearchBar({ navigateToProductPage, currentProduct }) {
   const searchContext = useContext(SearchContext);
   const timeoutRef = useRef();
 
@@ -48,25 +48,23 @@ export default function SearchBar() {
 
   return (
     <>
-      <Grid.Row>
-        <Grid.Column width={10}>
-          <Search
-          
-            input={{ fluid: true }}
-            loading={searchContext.searchState.loading}
-            placeholder="Search..."
-            onResultSelect={(e, data) =>
-              searchContext.searchDispatch({
-                type: "UPDATE_SELECTION",
-                selection: data.result.title,
-              })
-            }
-            onSearchChange={handleSearchChange}
-            results={searchContext.searchState.results}
-            value={searchContext.searchState.value}
-          />
-        </Grid.Column>
-      </Grid.Row>
+      <Search
+        fluid
+        aligned="right"
+        input={{ fluid: true }}
+        loading={searchContext.searchState.loading}
+        placeholder="Search..."
+        onResultSelect={
+          (e, data) => navigateToProductPage(data.result)
+          // searchContext.searchDispatch({
+          //   type: "UPDATE_SELECTION",
+          //   selection: data.result.title,
+          // })
+        }
+        onSearchChange={handleSearchChange}
+        results={searchContext.searchState.results}
+        value={searchContext.searchState.value}
+      />
     </>
   );
 }

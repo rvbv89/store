@@ -1,13 +1,15 @@
-import React from 'react'
+import React, {useState} from 'react'
 import { Container } from 'semantic-ui-react'
 import CardGroup from './CardGroup'
 
-export default function Home() {
+export default function Home({  navigateToProductPage, }) {
+  
+
   return (
     <Container
     id="card-container"
     fluid
-    style={{ margin: -20, paddingTop: 50 }}
+    style={{ margin: -20, paddingTop: 50, }}
   >
     <div
       className="ui center aligned header"
@@ -24,10 +26,10 @@ export default function Home() {
         className="ui huge header"
         style={{ fontStyle: "italic", fontWeight: "lighter" }}
       >
-        Some Sort Of Discout Available!
+        Some Sort Of Discount Available!
       </h1>
     </div>
-    <CardGroup />
+    <CardGroup navigateToProductPage={navigateToProductPage} />
   </Container>
   )
 }

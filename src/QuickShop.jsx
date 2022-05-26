@@ -1,8 +1,15 @@
 import React, { useState } from "react";
+import { useCart } from "./context/CartProvider";
 import { Button, Header, Image, Modal } from "semantic-ui-react";
 
 export default function QuickShop({ product, isVisible }) {
+  const { updateCart } = useCart();
   const [open, setOpen] = useState(false);
+
+  const addToCart = () => {
+    updateCart(product)
+    setOpen(false);
+  };
 
   return (
     <Modal
@@ -31,7 +38,7 @@ export default function QuickShop({ product, isVisible }) {
           content="Add To Cart"
           labelPosition="right"
           icon="shopping cart"
-          onClick={() => setOpen(false)}
+          onClick={(e) => addToCart()}
           positive
         />
       </Modal.Actions>
