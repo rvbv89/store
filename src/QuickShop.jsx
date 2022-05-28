@@ -6,7 +6,8 @@ export default function QuickShop({ product, isVisible }) {
   const { updateCart } = useCart();
   const [open, setOpen] = useState(false);
 
-  const addToCart = () => {
+  const quickAddToCart = () => {
+    product['quantity'] = 1;
     updateCart(product)
     setOpen(false);
   };
@@ -38,7 +39,7 @@ export default function QuickShop({ product, isVisible }) {
           content="Add To Cart"
           labelPosition="right"
           icon="shopping cart"
-          onClick={(e) => addToCart()}
+          onClick={(e) => quickAddToCart()}
           positive
         />
       </Modal.Actions>

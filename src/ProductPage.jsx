@@ -46,26 +46,23 @@ const dropdownOptions = [
 
 export default function ProductPage() {
   const { currentProduct, setCart, cart, updateCart } = useCart();
-  const [quantity, setQuantity] = useState(null)
+  const [quantity, setQuantity] = useState(null);
 
-  // const updateCartFromPage = (value) => {
-
-  //   console.log(value)
-  // }
-
-  const onCartAdd = () => {
-    
-    if (quantity === null){
-      alert('Please select a quantity to add to cart')
+  const updateCartFromPage = () => {
+    if (quantity === null) {
+      alert("Please select a quantity to add to cart");
+    } else if (cart.indexOf(currentProduct) !== -1) {
+      let updatedCurrentProduct = (currentProduct.quantity += quantity);
+      setCart((prevState) => {
+        prevState.currentProduct = updatedCurrentProduct;
+        return [...prevState];
+      });
+      console.log(cart);
     } else {
-      for (let n = 0; n < quantity; n++) {
-        setCart(prevCartProducts =>
-          [...prevCartProducts, currentProduct]
-        )
-      }
+      currentProduct['quantity'] = quantity
+      setCart(prevState => [...prevState, currentProduct])
     }
-  }
-
+  };
   return (
     currentProduct && (
       <Container>
@@ -89,7 +86,7 @@ export default function ProductPage() {
                 <Dropdown
                   onChange={(e, result) => {
                     console.log(result.value);
-                    setQuantity(result.value)
+                    setQuantity(result.value);
                   }}
                   style={{ margin: 15, width: 4 }}
                   options={dropdownOptions}
@@ -98,11 +95,9 @@ export default function ProductPage() {
                   placeholder="Select Quantity"
                 />
                 <Button
-                  onClick={
-                   (e) => {
-                     onCartAdd()
-                   }
-                  }
+                  onClick={(e) => {
+                    updateCartFromPage();
+                  }}
                   basic
                   color="green"
                 >

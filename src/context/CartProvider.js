@@ -9,6 +9,7 @@ export function useCart() {
 export default function CartProvider({ children }) {
   const [currentProduct, setCurrentProduct] = useState("");
   const [cart, setCart] = useState([]);
+  const [cartTotal, setCartTotal] = useState(0);
 
   useEffect(() => {
     console.log(cart);
@@ -19,8 +20,16 @@ export default function CartProvider({ children }) {
   }, [currentProduct]);
 
   useEffect(() => {
-   localStorage.setItem('cart', JSON.stringify(cart))
+    localStorage.setItem("cart", JSON.stringify(cart));
   }, [cart]);
+
+  useEffect(() => {
+    const sum = cart.reduce((acc, prod) => {
+      return acc + prod.quantity
+    },0);
+    console.log(sum)
+    setCartTotal(sum)
+  },[cart]);
 
   const updateCart = (product) =>
     setCart(
@@ -36,6 +45,7 @@ export default function CartProvider({ children }) {
     cart,
     setCart,
     updateCart,
+    cartTotal
   };
   return <CartContext.Provider value={value}>{children}</CartContext.Provider>;
 }

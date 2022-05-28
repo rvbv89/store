@@ -1,4 +1,4 @@
-import React, { useRef } from "react";
+import React, { useState, useEffect } from "react";
 import {
   Icon,
   Grid,
@@ -21,7 +21,29 @@ export default function NavBar({
   navigateToCartPage,
   navigateToHomePage,
 }) {
-  const { cart } = useCart();
+  const { updateCart, cart, cartTotal } = useCart();
+
+  // const [cartTotal, setCartTotal] = useState(0);
+
+ 
+  // useEffect(() => {
+  //   function updateQuantity() {
+  //     let cartQuantity = [];
+  //     cart.map((item) => cartQuantity.push(item.quantity));
+  //     console.log(cartQuantity);
+  //     let total = 0;
+  //     for (let n = 0; n < cartQuantity.length; n++) {
+  //       total += cartQuantity[n];
+  //       console.log(total);
+  //     }
+  //     setCartTotal(total);
+  //   };
+  //   updateQuantity()
+  // }, [updateCart, cart]);
+
+useEffect(()=>{
+  console.log(cartTotal)
+},[cartTotal])
 
   return (
     <Container
@@ -63,9 +85,7 @@ export default function NavBar({
               size="big"
               onClick={navigateToCartPage}
             />
-            <span style={{ fontWeight: "bold" }}>
-              {cart.length > 0 && cart.length}
-            </span>
+            <span style={{ fontWeight: "bold" }}>{cartTotal}</span>
           </Grid.Row>
         </Grid.Column>
       </Grid>
