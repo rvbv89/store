@@ -10,6 +10,7 @@ export default function CartProvider({ children }) {
   const [currentProduct, setCurrentProduct] = useState("");
   const [cart, setCart] = useState([]);
   const [cartTotal, setCartTotal] = useState(0);
+  const [priceTotal, setPriceTotal] = useState(0);
 
   useEffect(() => {
     console.log(cart);
@@ -24,12 +25,24 @@ export default function CartProvider({ children }) {
   }, [cart]);
 
   useEffect(() => {
-    const sum = cart.reduce((acc, prod) => {
-      return acc + prod.quantity
-    },0);
-    console.log(sum)
-    setCartTotal(sum)
-  },[cart]);
+    const quantitySum = cart.reduce((acc, prod) => {
+      return acc + prod.quantity;
+    }, 0);
+
+    setCartTotal(quantitySum);
+  }, [cart]);
+
+  useEffect(() => {
+    let prices = 0
+   cart.map(product => {
+     for (let i = 0; i < product.quantity; i++){
+       prices += product.price;
+       setPriceTotal(prices.toFixed(2))
+     }
+   }) 
+  console.log(priceTotal)
+    
+  }, [cart]);
 
   const updateCart = (product) =>
     setCart(
@@ -45,7 +58,8 @@ export default function CartProvider({ children }) {
     cart,
     setCart,
     updateCart,
-    cartTotal
+    cartTotal,
+    priceTotal,
   };
   return <CartContext.Provider value={value}>{children}</CartContext.Provider>;
 }

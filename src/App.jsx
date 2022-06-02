@@ -36,14 +36,16 @@ function App() {
   const [state, dispatch] = useReducer(searchReducer, initialState);
   const { setCurrentProduct, currentProduct, setCart, cart } = useCart();
   const apiURL = "https://fakestoreapi.com/products";
+  const [loadingProducts, setLoadingProducts] = useState(false)
 
   useEffect(() => {
     dispatch({ type: "API_CALL" });
     const getAPI = async () => {
+      setLoadingProducts(true)
       const res = await axios(apiURL);
       if (res.status == 200) {
         dispatch({ type: "API_SUCCESS", data: res.data });
-
+        setLoadingProducts(false)
         return;
       }
       dispatch({ type: "API_ERROR", error: res.error });
@@ -82,7 +84,7 @@ function App() {
         />
 
         <Routes>
-          <Route path="/" element={<Home navigateToProductPage={navigateToProductPage} />} />
+          <Route path="/" element={<Home loadingProducts={loadingProducts} navigateToProductPage={navigateToProductPage} />} />
           <Route path="product-page" element={<ProductPage />} />
           <Route path="cart-page" element={<CartPage />} />
         </Routes>

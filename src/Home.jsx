@@ -1,35 +1,45 @@
-import React, {useState} from 'react'
-import { Container } from 'semantic-ui-react'
-import CardGroup from './CardGroup'
+import React, { useState } from "react";
+import { Container } from "semantic-ui-react";
+import CardGroup from "./CardGroup";
 
-export default function Home({  navigateToProductPage, }) {
-  
-
+export default function Home({ navigateToProductPage, loadingProducts }) {
   return (
-    <Container
-    id="card-container"
-    fluid
-    style={{ margin: -20, paddingTop: 50, }}
-  >
-    <div
-      className="ui center aligned header"
-      style={{
-        width: "100%",
-        height: "20em",
-        backgroundColor: "#EEBC77",
-      }}
-    >
-      <h2 className="ui huge header" style={{ padding: "2em" }}>
-        The Big Something Event!
-      </h2>
-      <h1
-        className="ui huge header"
-        style={{ fontStyle: "italic", fontWeight: "lighter" }}
+    <div>
+      <div
+        className="ui center aligned header"
+        style={{
+          width: "100%",
+          height: "20em",
+          backgroundColor: "#EEBC77",
+          padding: "2em",
+          textAlign: "center",
+        }}
       >
-        Some Sort Of Discount Available!
-      </h1>
+        <div
+          style={{
+            display: "block",
+            position: "relative",
+            top: "50%",
+            transform: "translateY(-50%)",
+          }}
+        >
+          <h2 className="ui huge header">The Big Something Event!</h2>
+          <h1
+            className="ui huge header"
+            style={{ fontStyle: "italic", fontWeight: "lighter" }}
+          >
+            Some Sort Of Discount Available!
+          </h1>
+        </div>
+      </div>
+
+      <Container id="card-container" centered  fluid style={{ padding: 50 }}>
+        <CardGroup
+        centered
+          loadingProducts={loadingProducts}
+          navigateToProductPage={navigateToProductPage}
+        />
+      </Container>
     </div>
-    <CardGroup navigateToProductPage={navigateToProductPage} />
-  </Container>
-  )
+  );
 }

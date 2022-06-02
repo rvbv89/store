@@ -6,7 +6,7 @@ import {
   Rating,
   Header,
   Dimmer,
-  DimmerDimmable,
+  Loader,
 } from "semantic-ui-react";
 import { useNavigate } from "react-router-dom";
 import { useCart } from "./context/CartProvider";
@@ -14,21 +14,13 @@ import { SearchContext } from "./App";
 import QuickShop from "./QuickShop";
 import { AnimatePresence, motion } from "framer-motion";
 
-const CardGroup = ({ navigateToProductPage }) => {
+const CardGroup = ({ navigateToProductPage, loadingProducts }) => {
   const searchContext = useContext(SearchContext);
   const allProducts = searchContext.searchState.source;
   const filteredProducts = searchContext.searchState.filteredSource;
-  const { setCurrentProduct } = useCart()
+  const { setCurrentProduct } = useCart();
   const [productCards, setProductCards] = useState();
   const [active, setActive] = useState(false);
-
-  // const navigate = useNavigate();
-
-  // const navigateToProductPage = (product) => {
-  //   setCurrentProduct(product);
-  //   console.log(product);
-  //   navigate("/product-page");
-  // };
 
   const openModal = () => {
     return;
@@ -36,21 +28,17 @@ const CardGroup = ({ navigateToProductPage }) => {
   useEffect(() => {
     console.log(active);
   }, [active]);
-  // const dimmedContent = (
-  //   <Dimmer active={active}>
-  //     <Header as="h2">Click To Open Product Page</Header>
-  //   </Dimmer>
-  // );
+
   const makeItemList = (products) => {
     const cards = [];
-    console.log(products);
     // const MotionCard = motion(Card);
     products.forEach((product) =>
       cards.push(
         <Card
+          centered
           raised={true}
           props={motion}
-          style={{ width: 300, cursor: "pointer" }}
+          style={{ width: 300, maxWidth: 300, cursor: "pointer" }}
         >
           <Dimmer
             onMouseEnter={setActive(true)}
@@ -66,7 +54,7 @@ const CardGroup = ({ navigateToProductPage }) => {
             <Image
               centered
               onClick={(e) => {
-                setCurrentProduct(product)
+                setCurrentProduct(product);
                 navigateToProductPage(product);
               }}
               src={product.image}
@@ -107,15 +95,27 @@ const CardGroup = ({ navigateToProductPage }) => {
   }, [filteredProducts, allProducts]);
 
   return (
-    <Container
-      id="card-container"
-      fluid
-      style={{ margin: -20, paddingTop: 50 }}
-    >
-      <Card.Group stackable doubling centered style={{ maxHeight: 300 }}>
-        {productCards}
-      </Card.Group>
-    </Container>
+    // <Container
+    //   id="card-container"
+    //   fluid
+    //   style={{ margin: -20, paddingTop: 50 }}
+    // >
+    <>
+      {loadingProducts ? (
+        <Loader
+          style={{ marginTop: 200 }}
+          active
+          centered
+          size="huge"
+          content="Fetching Products..."
+        />
+      ) : (
+        <Card.Group stackable doubling centered style={{ maxHeight: 300 }}>
+          {productCards}
+        </Card.Group>
+      )}
+    </>
+    // </Container>
   );
 };
 
