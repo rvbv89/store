@@ -38,7 +38,7 @@ const CardGroup = ({ navigateToProductPage, loadingProducts }) => {
           centered
           raised={true}
           props={motion}
-          style={{ minWidth: 300, maxWidth: 300, cursor: "pointer" }}
+          style={{ minWidth: 300, maxWidth: 300, cursor: "pointer", margin: 10 }}
         >
           <Dimmer
             onMouseEnter={setActive(true)}
@@ -107,7 +107,7 @@ const CardGroup = ({ navigateToProductPage, loadingProducts }) => {
           content="Fetching Products..."
         />
       ) : (
-        <Card.Group stackable centered style={{ maxHeight: 300 }}>
+        <Card.Group centered style={{ maxHeight: 300 }}>
           {productCards}
         </Card.Group>
       )}

@@ -68,7 +68,7 @@ function App() {
     navigate("/");
   };
   return (
-    <div className="App">
+    <div style={{margin:"-1em"}} className="App">
       <SearchContext.Provider
         value={{
           searchState: state,

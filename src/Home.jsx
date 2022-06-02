@@ -8,10 +8,11 @@ export default function Home({ navigateToProductPage, loadingProducts }) {
       <div
         className="ui center aligned header"
         style={{
-          width: "100%",
+          minWidth: "100%",
+          
           height: "20em",
           backgroundColor: "#EEBC77",
-          padding: "2em",
+          
           textAlign: "center",
         }}
       >
@@ -33,9 +34,9 @@ export default function Home({ navigateToProductPage, loadingProducts }) {
         </div>
       </div>
 
-      <Container id="card-container" centered  fluid style={{ padding: 50 }}>
+      <Container id="card-container" centered fluid style={{ padding: 30 }}>
         <CardGroup
-        centered
+          centered
           loadingProducts={loadingProducts}
           navigateToProductPage={navigateToProductPage}
         />
