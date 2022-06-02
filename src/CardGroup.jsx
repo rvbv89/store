@@ -38,7 +38,7 @@ const CardGroup = ({ navigateToProductPage, loadingProducts }) => {
           centered
           raised={true}
           props={motion}
-          style={{ width: 300, maxWidth: 300, cursor: "pointer" }}
+          style={{ minWidth: 300, maxWidth: 300, cursor: "pointer" }}
         >
           <Dimmer
             onMouseEnter={setActive(true)}
@@ -77,7 +77,9 @@ const CardGroup = ({ navigateToProductPage, loadingProducts }) => {
             extra
             style={{ display: "flex", justifyContent: "space-between" }}
           >
-            <span style={{ color: "green" }}>{"$" + product.price}</span>
+            <span style={{ color: "green" }}>
+              {"$" + product.price.toFixed(2)}
+            </span>
             <QuickShop product={product} />
           </Card.Content>
         </Card>
@@ -95,11 +97,6 @@ const CardGroup = ({ navigateToProductPage, loadingProducts }) => {
   }, [filteredProducts, allProducts]);
 
   return (
-    // <Container
-    //   id="card-container"
-    //   fluid
-    //   style={{ margin: -20, paddingTop: 50 }}
-    // >
     <>
       {loadingProducts ? (
         <Loader
@@ -110,12 +107,11 @@ const CardGroup = ({ navigateToProductPage, loadingProducts }) => {
           content="Fetching Products..."
         />
       ) : (
-        <Card.Group stackable doubling centered style={{ maxHeight: 300 }}>
+        <Card.Group stackable centered style={{ maxHeight: 300 }}>
           {productCards}
         </Card.Group>
       )}
     </>
-    // </Container>
   );
 };
 

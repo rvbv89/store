@@ -7,8 +7,8 @@ export default function QuickShop({ product, isVisible }) {
   const [open, setOpen] = useState(false);
 
   const quickAddToCart = () => {
-    product['quantity'] = 1;
-    updateCart(product)
+    product["quantity"] = 1;
+    updateCart(product);
     setOpen(false);
   };
 
@@ -25,10 +25,6 @@ export default function QuickShop({ product, isVisible }) {
         <Modal.Description>
           <Header>{product.title}</Header>
           <p>{product.description}</p>
-          <p style={{ color: "red" }}>
-            **Shopping Cart is NOT currently functional. Clicking will close
-            modal**
-          </p>
         </Modal.Description>
       </Modal.Content>
       <Modal.Actions>
