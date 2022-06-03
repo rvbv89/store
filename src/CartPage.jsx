@@ -5,7 +5,6 @@ import { useCart } from "./context/CartProvider";
 export default function CartPage() {
   const { cart, setCart, cartTotal, priceTotal } = useCart();
 
-  //TODO fix double decimal places for prices and conditional render empty page
   return (
     <>
       {cart.length > 0 ? (
@@ -28,9 +27,11 @@ export default function CartPage() {
                         each x {item.quantity}
                       </span>
                       <Icon
-                      onClick={() => {
-                        setCart(prevCart => prevCart.filter(prod => prod.title !== item.title) )
-                      }}
+                        onClick={() => {
+                          setCart((prevCart) =>
+                            prevCart.filter((prod) => prod.title !== item.title)
+                          );
+                        }}
                         name="delete"
                         style={{
                           color: "darkRed",

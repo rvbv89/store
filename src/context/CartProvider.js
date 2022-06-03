@@ -13,8 +13,11 @@ export default function CartProvider({ children }) {
   const [priceTotal, setPriceTotal] = useState(0);
 
   useEffect(() => {
-    console.log(cart);
-  }, [cart]);
+    const cart = JSON.parse(localStorage.getItem('cart'));
+    if (cart) {
+      setCart(cart)
+    }
+  }, []);
 
   useEffect(() => {
     console.log(currentProduct);
@@ -33,15 +36,14 @@ export default function CartProvider({ children }) {
   }, [cart]);
 
   useEffect(() => {
-    let prices = 0
-   cart.map(product => {
-     for (let i = 0; i < product.quantity; i++){
-       prices += product.price;
-       setPriceTotal(prices.toFixed(2))
-     }
-   }) 
-  console.log(priceTotal)
-    
+    let prices = 0;
+    cart.map((product) => {
+      for (let i = 0; i < product.quantity; i++) {
+        prices += product.price;
+        setPriceTotal(prices.toFixed(2));
+      }
+    });
+    console.log(priceTotal);
   }, [cart]);
 
   const updateCart = (product) =>
@@ -52,12 +54,24 @@ export default function CartProvider({ children }) {
       }
     );
 
+  const updateCartWithQuantity = (updatedCurrentProduct) => {
+    setCart((prevProducts) => {
+      prevProducts.currentProduct = updatedCurrentProduct;
+      return [...prevProducts];
+    });
+  };
+
+  useEffect(() => {
+    localStorage.setItem("cart", JSON.stringify(cart));
+  }, [cart]);
+
   const value = {
     currentProduct,
     setCurrentProduct,
     cart,
     setCart,
     updateCart,
+    updateCartWithQuantity,
     cartTotal,
     priceTotal,
   };

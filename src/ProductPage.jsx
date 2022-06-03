@@ -45,7 +45,8 @@ const dropdownOptions = [
 ];
 
 export default function ProductPage() {
-  const { currentProduct, setCart, cart, updateCart } = useCart();
+  const { currentProduct, setCart, cart, updateCart, updateCartWithQuantity } =
+    useCart();
   const [quantity, setQuantity] = useState(null);
 
   const updateCartFromPage = () => {
@@ -53,24 +54,22 @@ export default function ProductPage() {
       alert("Please select a quantity to add to cart");
     } else if (cart.indexOf(currentProduct) !== -1) {
       let updatedCurrentProduct = (currentProduct.quantity += quantity);
-      setCart((prevState) => {
-        prevState.currentProduct = updatedCurrentProduct;
-        return [...prevState];
-      });
+      updateCartWithQuantity(updatedCurrentProduct);
       console.log(cart);
     } else {
-      currentProduct['quantity'] = quantity
-      setCart(prevState => [...prevState, currentProduct])
+      currentProduct["quantity"] = quantity;
+      updateCart(currentProduct);
     }
   };
   return (
     currentProduct && (
-      <Container>
+      <Container style={{ padding: "1em" }}>
         <Header centered>{currentProduct.title}</Header>
         <Rating
           icon="star"
           defaultRating={currentProduct.rating.rate}
           maxRating={5}
+          style={{ marginBottom: "1.5em" }}
         />
         <span>${currentProduct.price}</span>
         <Grid columns={2} padded="horizontally" centered>
