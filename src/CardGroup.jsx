@@ -99,13 +99,15 @@ const CardGroup = ({ navigateToProductPage, loadingProducts }) => {
   return (
     <>
       {loadingProducts ? (
+        <Container style={{paddingTop: "20em"}}>
         <Loader
-          style={{ marginTop: 200 }}
+          style={{ marginTop: "20em" }}
           active
           centered
           size="huge"
           content="Fetching Products..."
         />
+        </Container>
       ) : (
         <Card.Group centered style={{ maxHeight: 300 }}>
           {productCards}
