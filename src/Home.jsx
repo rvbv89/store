@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import { Container } from "semantic-ui-react";
 import CardGroup from "./CardGroup";
 
@@ -9,10 +9,10 @@ export default function Home({ navigateToProductPage, loadingProducts }) {
         className="ui center aligned header"
         style={{
           minWidth: "100%",
-          
+
           height: "20em",
           backgroundColor: "#EEBC77",
-          
+
           textAlign: "center",
         }}
       >

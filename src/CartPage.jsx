@@ -3,7 +3,7 @@ import { Container, Segment, Header, Divider, Icon } from "semantic-ui-react";
 import { useCart } from "./context/CartProvider";
 
 export default function CartPage() {
-  const { cart, setCart, cartTotal, priceTotal } = useCart();
+  const { cart, setCart, priceTotal } = useCart();
 
   return (
     <>

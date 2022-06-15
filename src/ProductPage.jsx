@@ -11,8 +11,6 @@ import {
   ImageGroup,
   Button,
   Dropdown,
-  DropdownMenu,
-  DropdownItem,
 } from "semantic-ui-react";
 import { useCart } from "./context/CartProvider";
 

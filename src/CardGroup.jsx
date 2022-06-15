@@ -8,13 +8,10 @@ import {
   Dimmer,
   Loader,
   Transition,
-  TransitionGroup,
 } from "semantic-ui-react";
-import { useNavigate } from "react-router-dom";
 import { useCart } from "./context/CartProvider";
 import { SearchContext } from "./App";
 import QuickShop from "./QuickShop";
-import { AnimatePresence, motion } from "framer-motion";
 
 const CardGroup = ({ navigateToProductPage, loadingProducts }) => {
   const searchContext = useContext(SearchContext);
@@ -24,13 +21,9 @@ const CardGroup = ({ navigateToProductPage, loadingProducts }) => {
   const [productCards, setProductCards] = useState();
   const [active, setActive] = useState(false);
 
-  const openModal = () => {
-    return;
-  };
-
   const makeItemList = (products) => {
     const cards = [];
-    // const MotionCard = motion(Card);
+
     products.forEach((product) =>
       cards.push(
         <Transition
@@ -41,7 +34,6 @@ const CardGroup = ({ navigateToProductPage, loadingProducts }) => {
           <Card
             centered
             raised={true}
-            props={motion}
             style={{
               minWidth: 300,
               maxWidth: 300,
@@ -89,6 +81,7 @@ const CardGroup = ({ navigateToProductPage, loadingProducts }) => {
               <span style={{ color: "green" }}>
                 {"$" + product.price.toFixed(2)}
               </span>
+
               <QuickShop product={product} />
             </Card.Content>
           </Card>
