@@ -1,7 +1,6 @@
 import React, { useContext, useCallback } from "react";
 import { SearchContext } from "./App";
 import { Dropdown } from "semantic-ui-react";
-import { forEach } from "lodash";
 
 const options = [
   { key: 0, text: "All Products", value: "" },
@@ -21,19 +20,21 @@ const SearchFilter = () => {
         dispatch({
           type: "FILTER_SELECT",
           filteredSource: [],
-          filterValue: '',
+          filterValue: "",
         });
         return;
       } else {
         const source = searchContext.searchState.source;
         const filteredSource = (options) => {
-          const filteredProducts = source.filter((item) => item.category === data.value);
-           return filteredProducts;
+          const filteredProducts = source.filter(
+            (item) => item.category === data.value
+          );
+          return filteredProducts;
         };
         searchContext.searchDispatch({
           type: "FILTER_SELECT",
           filteredSource: filteredSource(options),
-          filterValue: data.value
+          filterValue: data.value,
         });
       }
     },

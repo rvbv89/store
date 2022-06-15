@@ -7,6 +7,8 @@ import {
   Header,
   Dimmer,
   Loader,
+  Transition,
+  TransitionGroup,
 } from "semantic-ui-react";
 import { useNavigate } from "react-router-dom";
 import { useCart } from "./context/CartProvider";
@@ -25,64 +27,72 @@ const CardGroup = ({ navigateToProductPage, loadingProducts }) => {
   const openModal = () => {
     return;
   };
-  useEffect(() => {
-    console.log(active);
-  }, [active]);
 
   const makeItemList = (products) => {
     const cards = [];
     // const MotionCard = motion(Card);
     products.forEach((product) =>
       cards.push(
-        <Card
-          centered
-          raised={true}
-          props={motion}
-          style={{ minWidth: 300, maxWidth: 300, cursor: "pointer", margin: 10 }}
+        <Transition
+          animation="slide right"
+          duration={500}
+          transitionOnMount={true}
         >
-          <Dimmer
-            onMouseEnter={setActive(true)}
-            onMouseLeave={setActive(false)}
-            active={active}
+          <Card
+            centered
+            raised={true}
+            props={motion}
+            style={{
+              minWidth: 300,
+              maxWidth: 300,
+              cursor: "pointer",
+              margin: 10,
+            }}
           >
-            <Header as="h2">Click To Open Product Page</Header>
-          </Dimmer>
-          <Image.Group
-            style={{ width: 300, height: 250, overflow: "hidden" }}
-            size="medium"
-          >
-            <Image
-              centered
-              onClick={(e) => {
-                setCurrentProduct(product);
-                navigateToProductPage(product);
-              }}
-              src={product.image}
-            />
-          </Image.Group>
+            <Dimmer
+              onMouseEnter={setActive(true)}
+              onMouseLeave={setActive(false)}
+              active={active}
+            >
+              <Header as="h2">Click To Open Product Page</Header>
+            </Dimmer>
+            <Image.Group
+              style={{ width: 300, height: 250, overflow: "hidden" }}
+              size="medium"
+            >
+              <Image
+                centered
+                onClick={(e) => {
+                  setCurrentProduct(product);
+                  navigateToProductPage(product);
+                }}
+                src={product.image}
+              />
+            </Image.Group>
 
-          <Card.Content>
-            <Card.Header style={{ padding: 10 }}>{product.title}</Card.Header>
-            <Card.Meta>
-              <div className="ui container flex-col">
-                <Rating
-                  icon="star"
-                  defaultRating={product.rating.rate}
-                  maxRating={5}
-                />
-              </div>
-            </Card.Meta>
-          </Card.Content>
-          <Card.Content
-            extra
-            style={{ display: "flex", justifyContent: "space-between" }}
-          >
-            <span style={{ color: "green" }}>
-              {"$" + product.price.toFixed(2)}
-            </span>
-            <QuickShop product={product} />
-          </Card.Content>
-        </Card>
+            <Card.Content>
+              <Card.Header style={{ padding: 10 }}>{product.title}</Card.Header>
+              <Card.Meta>
+                <div className="ui container flex-col">
+                  <Rating
+                    icon="star"
+                    defaultRating={product.rating.rate}
+                    maxRating={5}
+                  />
+                </div>
+              </Card.Meta>
+            </Card.Content>
+            <Card.Content
+              extra
+              style={{ display: "flex", justifyContent: "space-between" }}
+            >
+              <span style={{ color: "green" }}>
+                {"$" + product.price.toFixed(2)}
+              </span>
+              <QuickShop product={product} />
+            </Card.Content>
+          </Card>
+        </Transition>
       )
     );
     setProductCards(cards);
@@ -99,14 +109,14 @@ const CardGroup = ({ navigateToProductPage, loadingProducts }) => {
   return (
     <>
       {loadingProducts ? (
-        <Container style={{paddingTop: "20em"}}>
-        <Loader
-          style={{ marginTop: "20em" }}
-          active
-          centered
-          size="huge"
-          content="Fetching Products..."
-        />
+        <Container style={{ paddingTop: "20em" }}>
+          <Loader
+            style={{ marginTop: "20em" }}
+            active
+            centered
+            size="huge"
+            content="Fetching Products..."
+          />
         </Container>
       ) : (
         <Card.Group centered style={{ maxHeight: 300 }}>
