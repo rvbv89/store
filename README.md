@@ -1,8 +1,12 @@
-# Getting Started with Create React App
+# Want to see this project live?
+
+Visit https://cheery-travesseiro-5c9583.netlify.app/ to see the current working version.
+
+## Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
-## Available Scripts
+### Available Scripts
 
 In the project directory, you can run:
 
