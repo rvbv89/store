@@ -1,49 +1,20 @@
-import React, { useState, useEffect } from "react";
-import {
-  Icon,
-  Grid,
-  Menu,
-  Sticky,
-  Container,
-  Flex,
-  Ref,
-  GridRow,
-} from "semantic-ui-react";
+import React, { useEffect } from "react";
+import { Icon, Grid, Container } from "semantic-ui-react";
 import SearchFilter from "./SearchFilter";
 import SearchBar from "./SearchBar";
-import { Navigate, useNavigate } from "react-router-dom";
 import { useCart } from "./context/CartProvider";
 
 export default function NavBar({
   currentProduct,
-  setCurrentProduct,
   navigateToProductPage,
   navigateToCartPage,
   navigateToHomePage,
 }) {
-  const { updateCart, cart, cartTotal } = useCart();
+  const { cartTotal } = useCart();
 
-  // const [cartTotal, setCartTotal] = useState(0);
-
- 
-  // useEffect(() => {
-  //   function updateQuantity() {
-  //     let cartQuantity = [];
-  //     cart.map((item) => cartQuantity.push(item.quantity));
-  //     console.log(cartQuantity);
-  //     let total = 0;
-  //     for (let n = 0; n < cartQuantity.length; n++) {
-  //       total += cartQuantity[n];
-  //       console.log(total);
-  //     }
-  //     setCartTotal(total);
-  //   };
-  //   updateQuantity()
-  // }, [updateCart, cart]);
-
-useEffect(()=>{
-  console.log(cartTotal)
-},[cartTotal])
+  useEffect(() => {
+    console.log(cartTotal);
+  }, [cartTotal]);
 
   return (
     <Container
