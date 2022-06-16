@@ -2,7 +2,7 @@
 
 Front End: React, Semantic UI
 
-I used this project to try to more thoroughly learn about the Context API and provider patterns for state management.  I implemented a filterable search bar, a dynamic product page, and a mock shopping cart with an updating total.  I also used React Router to create the main product page, the specific product pages, the cart page, and to persist the navbar.  This project required a lot more complexity than I had anticipated, and I learned a bunch.  I am continuing to work on this project; revisiting some of the code, some things are a bit messier than I'd like, especially some of the Context Providers.  I am also considering migrating to Chakra-UI. Nothing against Semantic; I just LOVE Chakra!
+I used this project to try to more thoroughly learn about the Context API and provider patterns for state management.  This app fetches dummy product data from the Fake Store API (fakestoreapi.com). I implemented a filterable search bar, a dynamic product page, and a mock shopping cart with an updating total.  I also used React Router to create routes for the main product page, the specific product pages, the cart page, and to persist the navbar.  This project required a lot more complexity than I had anticipated, and I learned quite a bit.  I am continuing to work on this project; upon revisiting some of the code, some things are a bit less tidy than I'd like, especially some of the Context Providers.  I am also considering migrating to Chakra-UI. Nothing against Semantic; I just LOVE Chakra!
 
 # Want to see this project live?
 
