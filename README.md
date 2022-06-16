@@ -1,4 +1,4 @@
-#About this project
+# About this project
 
 Front End: React, Semantic UI
 
